@@ -15,6 +15,14 @@ class User
 
   has_secure_password
 
+  def admin?
+    self.role == 'admin'
+  end
+
+  def application?
+    self.role == 'application'
+  end
+
   def self.from_token_request request
     name = request.params["auth"] && request.params["auth"]["name"]
     self.find_by name: name

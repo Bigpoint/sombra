@@ -23,9 +23,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # gem dedicated to sombra
-gem 'unicorn'
-gem 'rack-attack'
-gem 'oj'
-gem 'oj_mimic_json'
-gem 'mongoid'
-gem 'knock'
+gem 'unicorn', '~> 5.2.0'
+gem 'redis-rails', '~> 5.0.1'
+gem 'rack-attack', '~> 5.0.1'
+gem 'oj', '~> 2.18.0'
+gem 'oj_mimic_json', '~> 1.0.1'
+gem 'mongoid', '~> 6.0.3'
+gem 'knock', '~> 2.0'
+gem 'access-granted', '~> 1.1.0'
