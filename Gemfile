@@ -24,6 +24,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # gem dedicated to sombra
 gem 'unicorn', '~> 5.2.0'
+gem 'unicorn-worker-killer', '~> 0.4.4'
 gem 'redis-rails', '~> 5.0.1'
 gem 'rack-attack', '~> 5.0.1'
 gem 'oj', '~> 2.18.0'

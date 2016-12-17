@@ -1,8 +1,6 @@
 class Rack::Attack
-  throttle('user_token/ip', :limit => 10, :period => 10.seconds) do |req|
-    if req.path == '/user_token' && req.post?
-      req.ip
-    end
+  throttle('req/ip', :limit => 10, :period => 10.seconds) do |req|
+    req.ip
   end
 
   Rack::Attack.throttled_response = lambda do |env|
