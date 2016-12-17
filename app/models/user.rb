@@ -30,7 +30,11 @@ class User
 
   def to_token_payload
     payload = {}
+    # std jwt claims
     payload['sub'] = self.id
+    payload['iat'] = Time.now.utc.to_i
+    payload['iss'] = Rails.application.secrets.jwt_issuer
+    # sombra claims
     payload['role'] = self.role
     payload['name'] = self.name
     payload['hash'] = Digest::SHA256.base64digest self.updated_at.to_s

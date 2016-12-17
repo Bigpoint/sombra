@@ -17,7 +17,7 @@ class TokenController < SecuredController
 
       render json: new_token, status: :created
     else
-      render json: '{"message":"user has changed, cannot refresh token"}', status: 401
+      render json: '{"IAm": "sombra", "Message":"user has changed, cannot refresh token"}', status: 401
     end
   end
 end

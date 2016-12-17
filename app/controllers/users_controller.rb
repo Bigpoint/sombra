@@ -3,6 +3,7 @@ class UsersController < SecuredController
 
   # GET /users
   def index
+    authorize! :read, User
     @users = User.all
 
     render json: @users
@@ -10,11 +11,13 @@ class UsersController < SecuredController
 
   # GET /users/1
   def show
+    authorize! :read, User
     render json: @user
   end
 
   # POST /users
   def create
+    authorize! :create, User
     @user = User.new(user_params)
 
     if @user.save
@@ -26,6 +29,7 @@ class UsersController < SecuredController
 
   # PATCH/PUT /users/1
   def update
+    authorize! :update, User
     if @user.update(user_params)
       render json: @user
     else
@@ -35,6 +39,7 @@ class UsersController < SecuredController
 
   # DELETE /users/1
   def destroy
+    authorize! :destroy, User
     @user.destroy
   end
 
