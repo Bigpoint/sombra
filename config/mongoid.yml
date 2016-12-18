@@ -3,9 +3,7 @@ production:
     default:
       database: sombra_production
       hosts:
-        <% ENV["SOMBRA_MONGODB_HOSTS"].split(',').each do |host| %>
-          - <%= host %>
-        <% end %>
+        - <%= ENV["SOMBRA_MONGODB_HOST"] %>
       options:
         user: <%= ENV["SOMBRA_MONGODB_USER"] %>
         password: <%= ENV["SOMBRA_MONGODB_PASSWORD"] %>
@@ -31,9 +29,7 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        <% ENV["SOMBRA_MONGODB_HOSTS"].split(',').each do |host| %>
-          - <%= host %>
-        <% end %>
+        - <%= ENV["SOMBRA_MONGODB_HOST"] %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -160,7 +156,7 @@ test:
     default:
       database: sombra_test
       hosts:
-        - localhost:27017
+        - mongodb:27017
       options:
         read:
           mode: :primary
