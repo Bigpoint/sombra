@@ -1,10 +1,10 @@
 class Rack::Attack
-  throttle('req/ip', :limit => 10, :period => 10.seconds) do |req|
+  throttle('req/ip', :limit => 300, :period => 10.seconds) do |req|
     req.ip
   end
 
   Rack::Attack.throttled_response = lambda do |env|
-    now = Time.now
+    now = Time.now.utc
     match_data = env['rack.attack.match_data']
 
     headers = {
@@ -13,6 +13,6 @@ class Rack::Attack
       'X-RateLimit-Reset' => (now + (match_data[:period] - now.to_i % match_data[:period])).to_s
     }
 
-    [ 429, headers, ["Throttled\n"]]
+    [ 429, headers, ["Throttled"]]
   end
 end

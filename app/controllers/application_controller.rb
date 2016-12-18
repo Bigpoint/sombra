@@ -6,6 +6,6 @@ class ApplicationController < ActionController::API
   end
 
   rescue_from "AccessGranted::AccessDenied" do |exception|
-    render json: {IAm: "sombra", Message: "Authorization denied"}, status: 403
+    render json: {IAm: "sombra", Message: "Authorization denied. Boop!"}, status: 403
   end
 end

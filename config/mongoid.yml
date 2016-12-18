@@ -3,7 +3,9 @@ production:
     default:
       database: sombra_production
       hosts:
-        - <%= ENV["SOMBRA_MONGODB_HOST"] %>
+        <% ENV["SOMBRA_MONGODB_HOSTS"].split(',').each do |host| %>
+          - <%= host %>
+        <% end %>
       options:
         user: <%= ENV["SOMBRA_MONGODB_USER"] %>
         password: <%= ENV["SOMBRA_MONGODB_PASSWORD"] %>
@@ -13,6 +15,9 @@ production:
         auth_source: <%= ENV["SOMBRA_MONGODB_AUTH_SOURCE"] %>
         max_pool_size: <%= ENV["SOMBRA_MONGODB_MAX_POOL_SIZE"] %>
         min_pool_size: <%= ENV["SOMBRA_MONGODB_MIN_POOL_SIZE"] %>
+        wait_queue_timeout: 5
+        connect_timeout: 2
+        socket_timeout: 2
 
 
 development:
@@ -26,7 +31,9 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - mongodb:27017
+        <% ENV["SOMBRA_MONGODB_HOSTS"].split(',').each do |host| %>
+          - <%= host %>
+        <% end %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -82,15 +89,15 @@ development:
 
         # The time to wait, in seconds, in the connection pool for a connection
         # to be checked in before timing out. (default: 5)
-        # wait_queue_timeout: 5
+        wait_queue_timeout: 5
 
         # The time to wait to establish a connection before timing out, in seconds.
         # (default: 5)
-        # connect_timeout: 5
+        connect_timeout: 2
 
         # The timeout to wait to execute operations on a socket before raising an error.
         # (default: 5)
-        # socket_timeout: 5
+        socket_timeout: 2
 
         # The name of the replica set to connect to. Servers provided as seeds that do
         # not belong to this replica set will be ignored.
