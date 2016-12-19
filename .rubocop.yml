@@ -10,6 +10,10 @@ ClassAndModuleChildren:
   Exclude:
     - test/test_helper.rb
 
+UnusedBlockArgument:
+  Exclude:
+    - config/unicorn.rb
+
 LineLength:
   Max: 120
 MethodLength:
