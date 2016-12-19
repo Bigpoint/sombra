@@ -30,7 +30,8 @@ class User
 
   ##
   # Method to find the correct user model by :name.
-  # Knock default is searching for emails.
+  # @note Knocks default is searching for emails.
+  # @raise [UserNotFound] if the user cannot be found in mongodb
   def self.from_token_request(request)
     name = request.params['auth'] && request.params['auth']['name']
     find_by name: name
@@ -44,6 +45,7 @@ class User
   #   * role
   #   * name
   #   * hash (hashed modified_at, used in TokenController#refresh_token)
+  # @return [Hash] the payload as hash
   def to_token_payload
     payload = {}
     # std jwt claims

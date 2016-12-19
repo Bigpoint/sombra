@@ -11,8 +11,7 @@ class UsersController < SecuredController
 
   ##
   # Method to show all users.
-  # Example:
-  # GET /users
+  # @example GET /users
   def index
     authorize! :read, User
     @users = User.all
@@ -22,8 +21,7 @@ class UsersController < SecuredController
 
   ##
   # Method to show a particular user.
-  # Example:
-  # GET /users/5857...
+  # @example GET /users/5857...
   def show
     authorize! :read, User
     render json: @user
@@ -31,8 +29,7 @@ class UsersController < SecuredController
 
   ##
   # Method to create a new user.
-  # Example:
-  # POST /users with body {"user":{"name":"myapplication", "password":"securePassword", "role":"application"}}
+  # @example POST /users with body +{"user":{"name":"myapplication","password":"securePassword","role":"application"}}+
   def create
     authorize! :create, User
     @user = User.new(user_params)
@@ -46,8 +43,7 @@ class UsersController < SecuredController
 
   ##
   # Method to update a given user.
-  # Example:
-  # PUT /users/5857... with body {"user":{"name":"renamedApplication"}}
+  # @example PUT /users/5857... with body +{"user":{"name":"renamedApplication"}}+
   def update
     authorize! :update, User
     if @user.update(user_params)
@@ -59,8 +55,7 @@ class UsersController < SecuredController
 
   ##
   # Method to delete a give user.
-  # Example:
-  # DELETE /users/5857...
+  # @example DELETE /users/5857...
   def destroy
     authorize! :destroy, User
     @user.destroy

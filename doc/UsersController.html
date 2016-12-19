@@ -157,7 +157,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>POST /users.</p>
+<p>Method to create a new user.</p>
 </div></span>
   
 </li>
@@ -181,7 +181,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>DELETE /users/1.</p>
+<p>Method to delete a give user.</p>
 </div></span>
   
 </li>
@@ -205,7 +205,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>GET /users.</p>
+<p>Method to show all users.</p>
 </div></span>
   
 </li>
@@ -229,7 +229,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>GET /users/1.</p>
+<p>Method to show a particular user.</p>
 </div></span>
   
 </li>
@@ -253,7 +253,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>PUT /users/1.</p>
+<p>Method to update a given user.</p>
 </div></span>
   
 </li>
@@ -294,13 +294,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>POST /users</p>
+<p>Method to create a new user.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>POST /users with body
+<tt>{“user”:{“name”:“myapplication”,“password”:“securePassword”,“role”:“application”}}</tt></p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -308,19 +321,19 @@
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
 33
 34
 35
-36</pre>
+36
+37
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='const'>User</span>
@@ -349,13 +362,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>DELETE /users/1</p>
+<p>Method to delete a give user.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>DELETE /users/5857…</p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -363,13 +388,13 @@
       <pre class="lines">
 
 
-49
-50
-51
-52</pre>
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:destroy</span><span class='comma'>,</span> <span class='const'>User</span>
@@ -392,13 +417,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>GET /users</p>
+<p>Method to show all users.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>GET /users</p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -406,15 +443,15 @@
       <pre class="lines">
 
 
-13
-14
 15
 16
 17
-18</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'>User</span>
@@ -439,13 +476,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>GET /users/1</p>
+<p>Method to show a particular user.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>GET /users/5857…</p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -453,13 +502,13 @@
       <pre class="lines">
 
 
-21
-22
-23
-24</pre>
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
   <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'>User</span>
@@ -482,13 +531,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>PUT /users/1</p>
+<p>Method to update a given user.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>PUT /users/5857… with body <tt>{“user”:{“name”:“renamedApplication”}}</tt></p>
+</div></p>
+      
+      <pre class="example code"><code></code></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -496,17 +557,17 @@
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44
-45
-46</pre>
+47
+48
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='const'>User</span>
@@ -526,7 +587,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 19 18:09:48 2016 by
+  Generated on Mon Dec 19 23:39:53 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.3).
 </div>
