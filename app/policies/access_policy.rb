@@ -1,3 +1,5 @@
+##
+# The AccessPolicy defines which users and roles are needed to access resources.
 class AccessPolicy
   include AccessGranted::Policy
 

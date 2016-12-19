@@ -1,3 +1,11 @@
+##
+# The UsersController handles REST logic for the User resource.
+# Actions:
+#   * index
+#   * show
+#   * create
+#   * update
+#   * destroy
 class UsersController < SecuredController
   before_action :set_user, only: [:show, :update, :destroy]
 
@@ -27,7 +35,7 @@ class UsersController < SecuredController
     end
   end
 
-  # PATCH/PUT /users/1
+  # PUT /users/1
   def update
     authorize! :update, User
     if @user.update(user_params)
@@ -44,13 +52,14 @@ class UsersController < SecuredController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.require(:user).permit(:name, :password, :role)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def user_params
+    params.require(:user).permit(:name, :password, :role)
+  end
 end

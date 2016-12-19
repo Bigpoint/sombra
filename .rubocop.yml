@@ -1,0 +1,16 @@
+AllCops:
+  Exclude:
+    - bin/**
+    - vendor/**
+    # ignore 3rd party middleware initializers
+    - config/initializers/rack-attack.rb
+    - config/initializers/knock.rb
+
+ClassAndModuleChildren:
+  Exclude:
+    - test/test_helper.rb
+
+LineLength:
+  Max: 120
+MethodLength:
+  Max: 30

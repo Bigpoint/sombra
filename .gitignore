@@ -18,3 +18,6 @@
 
 # ignore Gemfile.lock
 Gemfile.lock
+
+# ignore yard's folder
+.yardoc

@@ -1,5 +1,6 @@
 require 'digest'
-
+##
+# The User model.
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -15,29 +16,44 @@ class User
 
   has_secure_password
 
+  ##
+  # Method to check if current_user is an admin.
   def admin?
-    self.role == 'admin'
+    role == 'admin'
   end
 
+  ##
+  # Method to check if current_user is an application.
   def application?
-    self.role == 'application'
+    role == 'application'
   end
 
-  def self.from_token_request request
-    name = request.params["auth"] && request.params["auth"]["name"]
-    self.find_by name: name
+  ##
+  # Method to find the correct user model by :name.
+  # Knock default is searching for emails.
+  def self.from_token_request(request)
+    name = request.params['auth'] && request.params['auth']['name']
+    find_by name: name
   end
 
+  ##
+  # Method to expand the returned JWT with more claims:
+  #   * subject (sub)
+  #   * issued at (iat)
+  #   * issuer (iss)
+  #   * role
+  #   * name
+  #   * hash (hashed modified_at, used in TokenController#refresh_token)
   def to_token_payload
     payload = {}
     # std jwt claims
-    payload['sub'] = self.id
+    payload['sub'] = id
     payload['iat'] = Time.now.utc.to_i
     payload['iss'] = Rails.application.secrets.jwt_issuer
     # sombra claims
-    payload['role'] = self.role
-    payload['name'] = self.name
-    payload['hash'] = Digest::SHA256.base64digest self.updated_at.to_s
-    return payload
+    payload['role'] = role
+    payload['name'] = name
+    payload['hash'] = Digest::SHA256.base64digest updated_at.to_s
+    payload
   end
 end
