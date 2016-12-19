@@ -6,7 +6,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile $APP_HOME/
-ADD Gemfile.lock $APP_HOME/
+ADD Gemfile.lock.empty $APP_HOME/
 # unfortunately we need native extensions, so compilers
 RUN apk add --update ruby-dev build-base linux-headers
 RUN bundle install
