@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 ##
 # The UsersController handles REST logic for the User resource.
 # Actions:

@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 Knock.setup do |config|
 
   ## Expiration claim
@@ -8,7 +11,7 @@ Knock.setup do |config|
   ##
   ## Default:
   expiraton = ENV['SOMBRA_TOKEN_EXPIRATION_IN_S'] || 3600
-  config.token_lifetime = expiraton.to_i.seconds  
+  config.token_lifetime = expiraton.to_i.seconds
 
   ## Audience claim
   ## --------------

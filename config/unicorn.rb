@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 # config/unicorn.rb
 worker_processes Integer(ENV['SOMBRA_UNICORN_CONCURRENCY'] || 3)
 timeout 15

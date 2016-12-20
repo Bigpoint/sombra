@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 ##
 # This is the main application controller
 # It provides the actions:

@@ -169,12 +169,14 @@ Sombra is configurable through environment variables:
 #### Environment
 Easiest way to develop Sombra is running the included docker-compose.yml.
 Make sure to rebuild your containers on changes. Depending on your OS you can also mount
-the source into the app container. This way rails will reload changed files (except initiliazers).
+the source into the app container. This way rails will reload changed files (except initializers).
 #### Tests
-Sombra's testing consists of integration tests. To run the test:
+Sombra's testing consists of integration tests. To run the tests:
 ```
 RAILS_ENV=test SOMBRA_MONGODB_HOST="mongodb:27017" rake db:reset && rails test
 ```
+Please lint your code using rubocop. 3rd party gems and their initializers should be ignored in linting.
+
 #### Documentation
 All environment variables need to be added to the README.md. Inline documentation
 should include why you are doing something. Stick to rdoc with @tags please.

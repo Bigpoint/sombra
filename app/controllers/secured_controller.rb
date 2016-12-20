@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 ##
 # A helper controller.
 # It ensures that the user is authenticated before accessing a controller.

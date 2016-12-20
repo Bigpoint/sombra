@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 require 'digest'
 ##
 # The User model.
@@ -25,7 +28,7 @@ class User
   ##
   # Method to check if current_user is an application.
   def application?
-    role == 'application'
+    role != 'admin'
   end
 
   ##

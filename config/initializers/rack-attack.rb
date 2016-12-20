@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 class Rack::Attack
   limit = ENV['SOMBRA_RATE_LIMIT_REQUESTS'] || 300
   period = ENV['SOMBRA_RATE_LIMIT_PERIOD_IN_S'] || 10

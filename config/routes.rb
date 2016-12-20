@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   post 'user_token', to: 'user_token#create'
   post 'user_token_refresh', to: 'token#refresh_token'
