@@ -212,9 +212,6 @@ request&#39;s authorization header.</p>
       <pre class="lines">
 
 
-13
-14
-15
 16
 17
 18
@@ -222,10 +219,13 @@ request&#39;s authorization header.</p>
 20
 21
 22
-23</pre>
+23
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/token_controller.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/token_controller.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_refresh_token'>refresh_token</span>
   <span class='kw'>if</span> <span class='ivar'>@current_hash</span> <span class='op'>==</span> <span class='ivar'>@decoded_token</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>payload</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -248,7 +248,7 @@ request&#39;s authorization header.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 19 23:39:53 2016 by
+  Generated on Tue Dec 20 10:30:38 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.3).
 </div>

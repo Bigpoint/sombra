@@ -60,11 +60,220 @@
       <iframe id="search_frame" src="file_list.html"></iframe>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-40TODO">@TODO</h1>
+<h2 id="label-23+Sombra"># Sombra</h2>
+
+<p>Sombra is a small rails application to provide <a
+href="https://jwt.io/">Json Web Tokens</a>. Sombra&#39;s users are managed
+through a RESTful api.</p>
+
+<h3 id="label-Getting+started">Getting started</h3>
+
+<p>The easiest way to get Sombra up and running is using docker with the
+provided docker-compose.yml. This will start sombra and its dependencies as
+containers. To get sombra up, run the following commands:</p>
+
+<pre class="code ruby"><code class="ruby">docker-compose up -d --build
+docker exec -it sombra_app_1 rake db:reset</code></pre>
+
+<p>Afterwards you can access sombra by pointing your browser towards:</p>
+
+<p><a href="http://127.0.0.1:8080">127.0.0.1:8080</a>/</p>
+
+<p>You will be greeted by a json output similar to this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='lbrace'>{</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>IAm</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sombra</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pubkey</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-----BEGIN PUBLIC KEY-----\nMFkw...CvRJQ==\n-----END PUBLIC KEY-----\n</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span>
+</code></pre>
+
+<p>** Do not use this way in production! ** See below how to set it up
+properly.</p>
+<hr>
+
+<h3 id="label-Using+Sombra">Using Sombra</h3>
+
+<p>By default the <code>rake db:reset</code> task will generate two users
+within the document database:  * <strong>admin</strong>: with password
+“admin” and role “admin”  * <strong>firstapp</strong>: with password
+“foobar” and role “application”</p>
+
+<p>It is highly recommmended to change the admin password. To do so, we need
+to get a valid JWT first. You want to execute the following curl:</p>
+
+<pre class="code ruby"><code class="ruby">curl -X POST -H &quot;Content-Type: application/json&quot; \
+ -d &#39;{&quot;auth&quot;:{&quot;name&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin&quot;}}&#39; \
+ http://your.sombra.host:8080/user_token</code></pre>
+
+<p>The result will look like this: <code> {   &quot;jwt&quot;:
+&quot;eyJ0eXAIoIJKV1Qi...&quot; } </code> Now, as we&#39;ve got a token, we
+need to find the admin user id:</p>
+
+<pre class="code ruby"><code class="ruby">curl -X GET -H &quot;Content-Type: application/json&quot; \
+ -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot;</code></pre>
+
+<p>Note that we add the <strong>eyJ0eXAIoIJKV1Qi…</strong> (the jwt) to the
+request as a bearer authorization header.</p>
+
+<p>This will result in a json array of users. Find the $oid field in the
+output for the admin user. It should look like
+“<strong><em>585…</em></strong>”.</p>
+
+<p>Now we finally can update the admin user password:</p>
+
+<pre class="code ruby"><code class="ruby">curl -X PUT -H &quot;Content-Type: application/json&quot; \
+ -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \
+ -d &#39;{&quot;user&quot;:{&quot;password&quot;:&quot;YOURNEWPASSWORD&quot;}}&#39; \
+ http://your.sombra.host:8080/users/585...</code></pre>
+
+<p>Make sure to use the correct id on the url. Your jwt will still be valid,
+but you will not be able to refresh the token without providing the changed
+password.</p>
+
+<p>Consider deleting the <strong><em>firstapp</em></strong> user:</p>
+
+<pre class="code ruby"><code class="ruby">curl -X DELETE -H &quot;Content-Type: application/json&quot; \
+ -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \
+ http://your.sombra.host:8080/users/THE$OIDFORFIRSTAPP</code></pre>
+
+<p>To create a new user, simply call sombra with a POST request: <code> curl
+-X POST -H &quot;Content-Type: application/json&quot; \  -H
+&quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \  -d
+&#39;{&quot;user&quot;:{&quot;name&quot;:&quot;MYNEWUSER&quot;,&quot;password&quot;:&quot;YOURNEWPASSWORD&quot;,&quot;role&quot;:&quot;application&quot;}}&#39;
+\  http://your.sombra.host:8080/users/ </code></p>
+
+<p>Further documentation on Sombra&#39;s API can be found in the doc/ folder.</p>
+<hr>
+
+<h3 id="label-Verifying+JWTs">Verifying JWTs</h3>
+
+<p>By default Sombra will use ECDSA256 to sign tokens. This way your
+application does not have to store a private key to verify the token. Your
+application however needs to either be deployed having Sombra&#39;s public
+key or aqcuire it by a request to Sombra&#39;s index (GET /).</p>
+
+<p>Sombra does not provide a way for key rollover. You should also not cache
+the public key. If you deploy the pubkey with your app, you will need to
+redeploy the app once the keypair was changed within Sombra.</p>
+
+<p>We might add JWK for this in the future.</p>
+<hr>
+
+<h3 id="label-How+to+run+Sombra+in+production+environments">How to run Sombra in production environments</h3>
+
+<p>We do not deliver a straight out of the box, production ready setup.
+Depending on your usecase, our way might be over the top or too secure.
+Some good practices:</p>
+<ul><li>
+<p>Run multiple Sombra app servers: As Sombra exposes its pubkey for
+verification, your app/apps might send a lot of requests. Horizontal
+scaling is especially useful if Sombra is used with customer interactions
+(a lot of users asking for JWTs). An easy way to archieve this is to put ta
+reverse proxy in front of your Sombrae (like nginx, traefik, ha-proxy).</p>
+</li><li>
+<p>Run Sombra behind a TLS enabled reverse proxy: As your app/apps/customers
+are sending their login credentials towards Sombra, it is highly
+recommended to put a TLS enabled reverse proxy in front (e.g. traefik has
+builtin Let&#39;s Encrypt support).</p>
+</li><li>
+<p>Rotate the ECDSA256 keypair often: Another good practice is to rotate
+Sombra&#39;s keys often.</p>
+</li><li>
+<p>Run multiple Sombra setups instead of one big one. Aim for fast
+deployments, not centralization.</p>
+</li></ul>
+
+<p>A recommended setup:  * Redis as container. Redis is used for
+rate-limiting.  * MongoDB as a service / as VM / as baremetal. In our
+humble opinion it is currently (2016) highly  discouraged to run persistant
+data based applications within containers. MongoDB is used as storage
+backend.  * traefik as reverse proxy with ACME enabled in front of Sombra
+containers.  * Setting RAILS_ENV=production for Sombra containers.  * Using
+<a href="https://elastic.co/en/products/beats">filebeat</a> to transfer
+logs to elastic stack.  * Set SOMBRA_UNICORN_CONCURRENCY to amount of CPU
+cores - 1.  * Use DNS roundrobin over multiple traefik loadbalancers.  *
+Have a repo containing a script to update Sombra&#39;s users. Make this
+your single point of truth for user configuration.</p>
+<hr>
+
+<h3 id="label-Configuration">Configuration</h3>
+
+<p>Sombra is configurable through environment variables:</p>
+
+<p>| Variable | Default | Required | Description | | ——— |:——-:|:———-:|————–|
+| SECRET_KEY_BASE | nil | yes | A long string which is used by Rails to
+secure sessions and more.| | SOMBRA_TOKEN_SECRET_PRIVATE | nil | yes | Your
+ECDSA256 privat key (pem, 1 line, see config/secrets.yml for example, see
+<a href="https://github.com/jwt/ruby-jwt">github.com/jwt/ruby-jwt</a> ECDSA
+how to generate one).| | SOMBRA_TOKEN_SECRET_PUBLIC | nil | yes | Your
+ECDSA256 public key (pem, 1 line). It has to match your privatekey.| |
+SOMBRA_TOKEN_ISSUER | nil | yes | A name for your Sombra setup. This is
+used in the JWT iss claim.| | SOMBRA_TOKEN_EXPIRATION_IN_S | 3600 | no |
+Token expiration in seconds.| | SOMBRA_REDIS_HOST | redis | no | The name
+of your redis host.| | SOMBRA_REDIS_PORT | 6379 | no | The redis port on
+your redis host.| | SOMBRA_REDIS_DATABASE | 0 | no | The db number on your
+redis host for Sombra.| | SOMBRA_REDIS_PASSWORD | foobar | no | The
+password used to AUTH at your redis.| | SOMBRA_MONGODB_HOST | nil | yes |
+The address of your MongoDB.| | SOMBRA_MONGODB_USER | nil | yes | The user
+for MongoDB.| | SOMBRA_MONGODB_PASSWORD | nil | yes | The password for
+MongoDB.| | SOMBRA_MONGODB_ROLES | nil | yes | The auth user&#39;s dbRoles
+for MongoDB.| | SOMBRA_MONGODB_AUTH_SOURCE | nil | yes | The db within
+MongoDB to auth against.| | SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes |
+Maximum concurrent connections to MongoDB per worker.| |
+SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Minimum concurrent connections
+to MongoDB per worker.| | SOMBRA_UNICORN_CONCURRENCY | 3 | no | Number of
+workers to be spawned (should be cpu cores - 1).| |
+SOMBRA_RATE_LIMIT_REQUESTS | 300 | no | Number of requests per IP before
+throttling.| | SOMBRA_RATE_LIMIT_PERIOD_IN_S | 10 | no | Period for
+requests. E.g. 300 reqs within 10s by one IP.|</p>
+<hr>
+
+<h3 id="label-Development">Development</h3>
+
+<h4 id="label-Environment">Environment</h4>
+
+<p>Easiest way to develop Sombra is running the included docker-compose.yml.
+Make sure to rebuild your containers on changes. Depending on your OS you
+can also mount the source into the app container. This way rails will
+reload changed files (except initializers).</p>
+
+<h4 id="label-Tests">Tests</h4>
+
+<p>Sombra&#39;s testing consists of integration tests. To run the tests:
+<code> RAILS_ENV=test SOMBRA_MONGODB_HOST=&quot;mongodb:27017&quot; rake
+db:reset &amp;&amp; rails test </code> Please lint your code using rubocop.
+3rd party gems and their initializers should be ignored in linting.</p>
+
+<h4 id="label-Documentation">Documentation</h4>
+
+<p>All environment variables need to be added to the README.md. Inline
+documentation should include why you are doing something. Stick to rdoc
+with @tags please. To generate the doc:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_yard'>yard</span> <span class='id identifier rubyid_doc'>doc</span>
+</code></pre>
+
+<h4 id="label-Contribution">Contribution</h4>
+
+<p>Fork this repo, change stuff, open a pull request. We will review your
+additions.</p>
+<hr>
+
+<h3 id="label-Why+Sombra-3F">Why Sombra?</h3>
+
+<p>Boop! This software&#39;s name was inspired by Blizzard&#39;s lovely
+character design.</p>
+<hr>
+
+<h3 id="label-License">License</h3>
+
+<p>Sombra is released under the <a
+href="https://github.com/Bigpoint/sombra/blob/master/LICENSE.md">MIT
+License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Dec 19 23:39:53 2016 by
+  Generated on Tue Dec 20 10:30:38 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.3).
 </div>
