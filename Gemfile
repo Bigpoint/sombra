@@ -16,8 +16,8 @@ end
 
 group :development do
   gem 'listen', '~> 3.0.5'
-  gem 'yard'
   gem 'rubocop'
+  gem 'yard'
 end
 
 # gem dedicated to sombra

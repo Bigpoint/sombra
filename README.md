@@ -8,6 +8,7 @@ The easiest way to get Sombra up and running is using docker with the provided d
 This will start sombra and its dependencies as containers. To get sombra up, run the following commands:
 
 ```
+touch Gemfile.lock
 docker-compose up -d --build
 docker exec -it sombra_app_1 rake db:reset
 ```
