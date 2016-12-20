@@ -7,8 +7,8 @@ Knock.setup do |config|
   ## last forever.
   ##
   ## Default:
-  config.token_lifetime = 1.hour
-
+  expiraton = ENV['SOMBRA_TOKEN_EXPIRATION_IN_S'] || 3600
+  config.token_lifetime = expiraton.to_i.seconds  
 
   ## Audience claim
   ## --------------

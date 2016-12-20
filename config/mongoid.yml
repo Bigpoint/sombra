@@ -11,8 +11,8 @@ production:
           - <%= ENV["SOMBRA_MONGODB_ROLES"] %>
         auth_mech: :scram
         auth_source: <%= ENV["SOMBRA_MONGODB_AUTH_SOURCE"] %>
-        max_pool_size: <%= ENV["SOMBRA_MONGODB_MAX_POOL_SIZE"] %>
-        min_pool_size: <%= ENV["SOMBRA_MONGODB_MIN_POOL_SIZE"] %>
+        max_pool_size: <%= ENV["SOMBRA_MONGODB_MAX_POOL_SIZE"].to_i %>
+        min_pool_size: <%= ENV["SOMBRA_MONGODB_MIN_POOL_SIZE"].to_i %>
         wait_queue_timeout: 5
         connect_timeout: 2
         socket_timeout: 2

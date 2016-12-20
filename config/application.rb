@@ -31,11 +31,14 @@ module Sombra
     config.time_zone = 'UTC'
     config.autoload_paths += %W(#{config.root}/app/errors)
 
+    redis_port = ENV['SOMBRA_REDIS_PORT'] || 6379
+    redis_db = ENV['SOMBRA_REDIS_DATABASE'] || 0
+
     config.cache_store = :redis_store, {
-      host: 'redis' || ENV['SOMBRA_REDIS_HOST'],
-      port: 6379 || ENV['SOMBRA_REDIS_PORT'].to_i,
-      db: 0 || ENV['SOMBRA_REDIS_DATABASE'].to_i,
-      password: 'foobar' || ENV['SOMBRA_REDIS_PASSWORD'],
+      host: ENV['SOMBRA_REDIS_HOST'] || 'redis',
+      port: redis_port.to_i,
+      db: redis_db.to_i,
+      password: ENV['SOMBRA_REDIS_PASSWORD'] || 'foobar',
       namespace: 'cache'
     }
 

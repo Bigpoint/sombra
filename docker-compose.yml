@@ -6,7 +6,7 @@
 version: '2'
 services:
   mongodb:
-    image: mongo
+    image: mongo:3.4
 
   redis:
     image: redis:3-alpine
@@ -26,4 +26,4 @@ services:
     environment:
       - RAILS_ENV=development
       - SECRET_KEY_BASE=bd43a0b6c77911978dfcf2d13b7467asdasdasd602c45abd612ebb2d8as9b7f8a244730def09a5c70573a3dbea6387248ec100aa2ae244730def0673707696f13e5e
-      - SOMBRA_MONGODB_HOST="mongodb:27017"
+      - SOMBRA_MONGODB_HOST=mongodb:27017

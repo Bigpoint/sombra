@@ -1,5 +1,8 @@
 class Rack::Attack
-  throttle('req/ip', :limit => 300, :period => 10.seconds) do |req|
+  limit = ENV['SOMBRA_RATE_LIMIT_REQUESTS'] || 300
+  period = ENV['SOMBRA_RATE_LIMIT_PERIOD_IN_S'] || 10
+
+  throttle('req/ip', :limit => limit.to_i, :period => period.to_i.seconds) do |req|
     req.ip
   end
 
