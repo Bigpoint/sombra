@@ -114,7 +114,7 @@ on your usecase, our way might be over the top or too secure. Some good practice
   * Run multiple Sombra app servers:
     As Sombra exposes its pubkey for verification, your app/apps might send a lot of requests.
     Horizontal scaling is especially useful if Sombra is used with customer interactions (a lot of users asking for JWTs).
-    An easy way to archieve this is to put ta reverse proxy in front of your Sombrae (like nginx, traefik, ha-proxy).
+    An easy way to achieve this is to put ta reverse proxy in front of your Sombras (like nginx, traefik, ha-proxy).
 
   * Run Sombra behind a TLS enabled reverse proxy:
     As your app/apps/customers are sending their login credentials towards Sombra, it is highly recommended to put

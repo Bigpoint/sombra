@@ -1,8 +1,8 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require 'digest'
 require 'base64'
+require 'digest'
 
 ##
 # This controller contains the logic to refresh a JWT by passing a JWT.
