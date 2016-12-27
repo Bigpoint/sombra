@@ -5,10 +5,11 @@ ENV APP_HOME /sombra
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-ADD Gemfile $APP_HOME/
-ADD Gemfile.lock $APP_HOME/
 # unfortunately we need native extensions, so compilers
 RUN apk add --update ruby-dev build-base linux-headers
+
+ADD Gemfile $APP_HOME/
+ADD Gemfile.lock $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
