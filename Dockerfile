@@ -1,4 +1,4 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 MAINTAINER Nils Bartels <n.bartels@bigpoint.net>
 
 ENV APP_HOME /sombra
