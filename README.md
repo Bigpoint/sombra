@@ -146,8 +146,7 @@ Sombra is configurable through environment variables:
 | Variable  | Default | Required | Description |
 | --------- |:-------:|:----------:|--------------|
 | SECRET_KEY_BASE | nil | yes | A long string which is used by Rails to secure sessions and more.|
-| SOMBRA_TOKEN_SECRET_PRIVATE | nil | yes | Your ECDSA256 privat key (pem, 1 line, see config/secrets.yml for example, see https://github.com/jwt/ruby-jwt ECDSA how to generate one).|
-| SOMBRA_TOKEN_SECRET_PUBLIC | nil | yes | Your ECDSA256 public key (pem, 1 line). It has to match your privatekey.|
+| SOMBRA_TOKEN_SECRET_PRIVATE | nil | yes | Your ECDSA256 private key (pem, 1 line, see config/secrets.yml for example, see https://github.com/jwt/ruby-jwt ECDSA how to generate one).|
 | SOMBRA_TOKEN_ISSUER | nil | yes | A name for your Sombra setup. This is used in the JWT iss claim.|
 | SOMBRA_TOKEN_EXPIRATION_IN_S | 3600 | no | Token expiration in seconds.|
 | SOMBRA_REDIS_HOST | redis | no | The name of your redis host.|

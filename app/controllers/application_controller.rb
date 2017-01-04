@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   ##
   # the / in the API
   def index
-    render json: { IAm: 'sombra', Pubkey: Rails.application.secrets.token_es256_pub }
+    render json: { IAm: 'sombra', Pubkey: Knock.token_public_key.to_pem }
   end
 
   rescue_from 'AccessGranted::AccessDenied' do
