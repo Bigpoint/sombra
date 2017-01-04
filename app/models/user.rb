@@ -52,7 +52,7 @@ class User
   def to_token_payload
     payload = {}
     # std jwt claims
-    payload['sub'] = id
+    payload['sub'] = id.to_s
     payload['iat'] = Time.now.utc.to_i
     payload['iss'] = Rails.application.secrets.jwt_issuer
     # sombra claims

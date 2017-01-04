@@ -53,7 +53,8 @@ Now, as we've got a token, we need to find the admin user id:
 
 ```
 curl -X GET -H "Content-Type: application/json" \
- -H "Authorization: bearer eyJ0eXAIoIJKV1Qi..."
+ -H "Authorization: bearer eyJ0eXAIoIJKV1Qi..." \
+ http://your.sombra.host:8080/users
 ```
 Note that we add the **eyJ0eXAIoIJKV1Qi...** (the jwt) to the request
 as a bearer authorization header.
