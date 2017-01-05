@@ -232,8 +232,7 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Method to expand the returned JWT with more claims:   * subject (sub)   *
-issued at (iat)   * issuer (iss)   * role   * name   * hash (hashed
-modified_at, used in TokenController#refresh_token).</p>
+issued at (iat)   * issuer (iss)   * role   * name.</p>
 </div></span>
   
 </li>
@@ -303,13 +302,13 @@ modified_at, used in TokenController#refresh_token).</p>
       <pre class="lines">
 
 
+37
 38
 39
-40
-41</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_token_request'>from_token_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -365,12 +364,12 @@ modified_at, used in TokenController#refresh_token).</p>
       <pre class="lines">
 
 
+23
 24
-25
-26</pre>
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_admin?'>admin?</span>
   <span class='id identifier rubyid_role'>role</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>admin</span><span class='tstring_end'>&#39;</span></span>
@@ -419,12 +418,12 @@ modified_at, used in TokenController#refresh_token).</p>
       <pre class="lines">
 
 
+29
 30
-31
-32</pre>
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
   <span class='id identifier rubyid_role'>role</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>admin</span><span class='tstring_end'>&#39;</span></span>
@@ -452,8 +451,7 @@ modified_at, used in TokenController#refresh_token).</p>
 * issued at (iat)
 * issuer (iss)
 * role
-* name
-* hash (hashed modified_at, used in TokenController#refresh_token)</code></pre>
+* name</code></pre>
 
 
   </div>
@@ -485,6 +483,8 @@ modified_at, used in TokenController#refresh_token).</p>
       <pre class="lines">
 
 
+50
+51
 52
 53
 54
@@ -493,24 +493,20 @@ modified_at, used in TokenController#refresh_token).</p>
 57
 58
 59
-60
-61
-62
-63</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_token_payload'>to_token_payload</span>
   <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='comment'># std jwt claims
-</span>  <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sub</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
+</span>  <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sub</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>iat</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
   <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>iss</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_secrets'>secrets</span><span class='period'>.</span><span class='id identifier rubyid_jwt_issuer'>jwt_issuer</span>
   <span class='comment'># sombra claims
 </span>  <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>role</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_role'>role</span>
   <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Digest</span><span class='op'>::</span><span class='const'>SHA256</span><span class='period'>.</span><span class='id identifier rubyid_base64digest'>base64digest</span> <span class='id identifier rubyid_updated_at'>updated_at</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_payload'>payload</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -523,9 +519,9 @@ modified_at, used in TokenController#refresh_token).</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 20 10:30:38 2016 by
+  Generated on Thu Jan  5 16:32:44 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.3).
+  0.9.5 (ruby-2.4.0).
 </div>
 
     </div>

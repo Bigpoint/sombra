@@ -72,7 +72,8 @@ through a RESTful api.</p>
 provided docker-compose.yml. This will start sombra and its dependencies as
 containers. To get sombra up, run the following commands:</p>
 
-<pre class="code ruby"><code class="ruby">docker-compose up -d --build
+<pre class="code ruby"><code class="ruby">touch Gemfile.lock
+docker-compose up -d --build
 docker exec -it sombra_app_1 rake db:reset</code></pre>
 
 <p>Afterwards you can access sombra by pointing your browser towards:</p>
@@ -110,7 +111,8 @@ to get a valid JWT first. You want to execute the following curl:</p>
 need to find the admin user id:</p>
 
 <pre class="code ruby"><code class="ruby">curl -X GET -H &quot;Content-Type: application/json&quot; \
- -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot;</code></pre>
+ -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \
+ http://your.sombra.host:8080/users</code></pre>
 
 <p>Note that we add the <strong>eyJ0eXAIoIJKV1Qi…</strong> (the jwt) to the
 request as a bearer authorization header.</p>
@@ -168,8 +170,8 @@ Some good practices:</p>
 <p>Run multiple Sombra app servers: As Sombra exposes its pubkey for
 verification, your app/apps might send a lot of requests. Horizontal
 scaling is especially useful if Sombra is used with customer interactions
-(a lot of users asking for JWTs). An easy way to archieve this is to put ta
-reverse proxy in front of your Sombrae (like nginx, traefik, ha-proxy).</p>
+(a lot of users asking for JWTs). An easy way to achieve this is to put ta
+reverse proxy in front of your Sombras (like nginx, traefik, ha-proxy).</p>
 </li><li>
 <p>Run Sombra behind a TLS enabled reverse proxy: As your app/apps/customers
 are sending their login credentials towards Sombra, it is highly
@@ -203,23 +205,22 @@ your single point of truth for user configuration.</p>
 <p>| Variable | Default | Required | Description | | ——— |:——-:|:———-:|————–|
 | SECRET_KEY_BASE | nil | yes | A long string which is used by Rails to
 secure sessions and more.| | SOMBRA_TOKEN_SECRET_PRIVATE | nil | yes | Your
-ECDSA256 privat key (pem, 1 line, see config/secrets.yml for example, see
+ECDSA256 private key (pem, 1 line, see config/secrets.yml for example, see
 <a href="https://github.com/jwt/ruby-jwt">github.com/jwt/ruby-jwt</a> ECDSA
-how to generate one).| | SOMBRA_TOKEN_SECRET_PUBLIC | nil | yes | Your
-ECDSA256 public key (pem, 1 line). It has to match your privatekey.| |
-SOMBRA_TOKEN_ISSUER | nil | yes | A name for your Sombra setup. This is
-used in the JWT iss claim.| | SOMBRA_TOKEN_EXPIRATION_IN_S | 3600 | no |
-Token expiration in seconds.| | SOMBRA_REDIS_HOST | redis | no | The name
-of your redis host.| | SOMBRA_REDIS_PORT | 6379 | no | The redis port on
-your redis host.| | SOMBRA_REDIS_DATABASE | 0 | no | The db number on your
-redis host for Sombra.| | SOMBRA_REDIS_PASSWORD | foobar | no | The
-password used to AUTH at your redis.| | SOMBRA_MONGODB_HOST | nil | yes |
-The address of your MongoDB.| | SOMBRA_MONGODB_USER | nil | yes | The user
-for MongoDB.| | SOMBRA_MONGODB_PASSWORD | nil | yes | The password for
-MongoDB.| | SOMBRA_MONGODB_ROLES | nil | yes | The auth user&#39;s dbRoles
-for MongoDB.| | SOMBRA_MONGODB_AUTH_SOURCE | nil | yes | The db within
-MongoDB to auth against.| | SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes |
-Maximum concurrent connections to MongoDB per worker.| |
+how to generate one).| | SOMBRA_TOKEN_ISSUER | nil | yes | A name for your
+Sombra setup. This is used in the JWT iss claim.| |
+SOMBRA_TOKEN_EXPIRATION_IN_S | 3600 | no | Token expiration in seconds.| |
+SOMBRA_REDIS_HOST | redis | no | The name of your redis host.| |
+SOMBRA_REDIS_PORT | 6379 | no | The redis port on your redis host.| |
+SOMBRA_REDIS_DATABASE | 0 | no | The db number on your redis host for
+Sombra.| | SOMBRA_REDIS_PASSWORD | foobar | no | The password used to AUTH
+at your redis.| | SOMBRA_MONGODB_HOST | nil | yes | The address of your
+MongoDB.| | SOMBRA_MONGODB_USER | nil | yes | The user for MongoDB.| |
+SOMBRA_MONGODB_PASSWORD | nil | yes | The password for MongoDB.| |
+SOMBRA_MONGODB_ROLES | nil | yes | The auth user&#39;s dbRoles for
+MongoDB.| | SOMBRA_MONGODB_AUTH_SOURCE | nil | yes | The db within MongoDB
+to auth against.| | SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Maximum
+concurrent connections to MongoDB per worker.| |
 SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Minimum concurrent connections
 to MongoDB per worker.| | SOMBRA_UNICORN_CONCURRENCY | 3 | no | Number of
 workers to be spawned (should be cpu cores - 1).| |
@@ -273,9 +274,9 @@ License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Dec 20 10:30:38 2016 by
+  Generated on Thu Jan  5 16:32:43 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.3).
+  0.9.5 (ruby-2.4.0).
 </div>
 
     </div>
