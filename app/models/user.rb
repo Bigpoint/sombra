@@ -1,7 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require 'digest'
 ##
 # The User model.
 class User
@@ -47,7 +46,6 @@ class User
   #   * issuer (iss)
   #   * role
   #   * name
-  #   * hash (hashed modified_at, used in TokenController#refresh_token)
   # @return [Hash] the payload as hash
   def to_token_payload
     payload = {}
@@ -58,7 +56,6 @@ class User
     # sombra claims
     payload['role'] = role
     payload['name'] = name
-    payload['hash'] = Digest::SHA256.base64digest updated_at.to_s
     payload
   end
 end
