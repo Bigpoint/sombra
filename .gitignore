@@ -21,3 +21,4 @@ Gemfile.lock
 
 # ignore yard's folder
 .yardoc
+.idea
