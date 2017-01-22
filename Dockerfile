@@ -28,5 +28,5 @@ RUN chown -R www-data:www-data tmp/ log/ Gemfile.lock
 
 USER www-data
 
-ENTRYPOINT ["/sbin/tini", "--", "unicorn"]
-CMD ["-c", "./config/unicorn.rb"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["unicorn", "-l", "0.0.0.0:8080", "-c", "./config/unicorn.rb"]
