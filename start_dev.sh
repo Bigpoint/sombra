@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+rm -f Gemfile.lock
+touch Gemfile.lock
 docker-compose pull
 docker-compose up -d mongodb
 sleep 5
