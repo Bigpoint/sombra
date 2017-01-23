@@ -15,7 +15,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
   gem 'request-log-analyzer'
   gem 'rubocop'
   gem 'yard'
@@ -27,7 +26,7 @@ gem 'knock', '~> 2.0'
 gem 'mongoid', '~> 6.0.3'
 gem 'oj', '~> 2.18.0'
 gem 'oj_mimic_json', '~> 1.0.1'
+gem 'puma', '~> 3.6.2'
+gem 'puma_worker_killer', '~> 0.0.7'
 gem 'rack-attack', '~> 5.0.1'
 gem 'redis-rails', '~> 5.0.1'
-gem 'unicorn', '~> 5.2.0'
-gem 'unicorn-worker-killer', '~> 0.4.4'
