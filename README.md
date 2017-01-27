@@ -82,7 +82,7 @@ curl -X DELETE -H "Content-Type: application/json" \
  http://your.sombra.host:8080/users/THE$OIDFORFIRSTAPP
 ```
 
-To create a new user, simply call sombra with a POST request:
+To create a new user, simply call sombra with a POST /users request:
 ```
 curl -X POST -H "Content-Type: application/json" \
  -H "Authorization: bearer eyJ0eXAIoIJKV1Qi..." \
@@ -119,7 +119,7 @@ on your usecase, our way might be over the top or too secure. Some good practice
 
   * Run Sombra behind a TLS enabled reverse proxy:
     As your app/apps/customers are sending their login credentials towards Sombra, it is highly recommended to put
-    a TLS enabled reverse proxy in front (e.g. traefik has builtin Let's Encrypt support).
+    a TLS enabled reverse proxy in front (e.g. [traefik](https://traefik.io) has builtin Let's Encrypt support).
 
   * Rotate the ECDSA256 keypair often:
     Another good practice is to rotate Sombra's keys often.
@@ -133,7 +133,7 @@ A recommended setup:
   * traefik as reverse proxy with ACME enabled in front of Sombra containers.
   * Setting RAILS_ENV=production for Sombra containers.
   * Using [filebeat](https://elastic.co/en/products/beats) to transfer logs to elastic stack.
-  * Set SOMBRA_UNICORN_CONCURRENCY to amount of CPU cores - 1.
+  * Set SOMBRA_PUMA_WORKERS to amount of CPU cores - 1.
   * Use DNS roundrobin over multiple traefik loadbalancers.
   * Have a repo containing a script to update Sombra's users. Make this your single point of truth for user configuration.
 
@@ -171,7 +171,7 @@ Sombra is configurable through environment variables:
 
 ### Development
 #### Environment
-Easiest way to develop Sombra is running the included docker-compose.yml.
+Easiest way to develop Sombra is running the included docker-compose.yml (see start_dev.sh).
 Make sure to rebuild your containers on changes. Depending on your OS you can also mount
 the source into the app container. This way rails will reload changed files (except initializers).
 #### Tests

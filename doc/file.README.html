@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.5
+    &mdash; Documentation by YARD 0.9.8
   
 </title>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="file_list.html"></iframe>
+      <iframe id="nav" src="file_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -56,8 +56,6 @@
 </div>
         <div class="clear"></div>
       </div>
-
-      <iframe id="search_frame" src="file_list.html"></iframe>
 
       <div id="content"><div id='filecontents'>
 <h2 id="label-23+Sombra"># Sombra</h2>
@@ -138,8 +136,8 @@ password.</p>
  -H &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \
  http://your.sombra.host:8080/users/THE$OIDFORFIRSTAPP</code></pre>
 
-<p>To create a new user, simply call sombra with a POST request: <code> curl
--X POST -H &quot;Content-Type: application/json&quot; \  -H
+<p>To create a new user, simply call sombra with a POST /users request: <code>
+curl -X POST -H &quot;Content-Type: application/json&quot; \  -H
 &quot;Authorization: bearer eyJ0eXAIoIJKV1Qi...&quot; \  -d
 &#39;{&quot;user&quot;:{&quot;name&quot;:&quot;MYNEWUSER&quot;,&quot;password&quot;:&quot;YOURNEWPASSWORD&quot;,&quot;role&quot;:&quot;application&quot;}}&#39;
 \  http://your.sombra.host:8080/users/ </code></p>
@@ -175,8 +173,9 @@ reverse proxy in front of your Sombras (like nginx, traefik, ha-proxy).</p>
 </li><li>
 <p>Run Sombra behind a TLS enabled reverse proxy: As your app/apps/customers
 are sending their login credentials towards Sombra, it is highly
-recommended to put a TLS enabled reverse proxy in front (e.g. traefik has
-builtin Let&#39;s Encrypt support).</p>
+recommended to put a TLS enabled reverse proxy in front (e.g. <a
+href="https://traefik.io">traefik</a> has builtin Let&#39;s Encrypt
+support).</p>
 </li><li>
 <p>Rotate the ECDSA256 keypair often: Another good practice is to rotate
 Sombra&#39;s keys often.</p>
@@ -192,10 +191,10 @@ data based applications within containers. MongoDB is used as storage
 backend.  * traefik as reverse proxy with ACME enabled in front of Sombra
 containers.  * Setting RAILS_ENV=production for Sombra containers.  * Using
 <a href="https://elastic.co/en/products/beats">filebeat</a> to transfer
-logs to elastic stack.  * Set SOMBRA_UNICORN_CONCURRENCY to amount of CPU
-cores - 1.  * Use DNS roundrobin over multiple traefik loadbalancers.  *
-Have a repo containing a script to update Sombra&#39;s users. Make this
-your single point of truth for user configuration.</p>
+logs to elastic stack.  * Set SOMBRA_PUMA_WORKERS to amount of CPU cores -
+1.  * Use DNS roundrobin over multiple traefik loadbalancers.  * Have a
+repo containing a script to update Sombra&#39;s users. Make this your
+single point of truth for user configuration.</p>
 <hr>
 
 <h3 id="label-Configuration">Configuration</h3>
@@ -222,21 +221,24 @@ MongoDB.| | SOMBRA_MONGODB_AUTH_SOURCE | nil | yes | The db within MongoDB
 to auth against.| | SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Maximum
 concurrent connections to MongoDB per worker.| |
 SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Minimum concurrent connections
-to MongoDB per worker.| | SOMBRA_UNICORN_CONCURRENCY | 3 | no | Number of
-workers to be spawned (should be cpu cores - 1).| |
-SOMBRA_RATE_LIMIT_REQUESTS | 300 | no | Number of requests per IP before
-throttling.| | SOMBRA_RATE_LIMIT_PERIOD_IN_S | 10 | no | Period for
-requests. E.g. 300 reqs within 10s by one IP.|</p>
+to MongoDB per worker.| | SOMBRA_SOMBRA_PUMA_WORKERS | 3 | no | Number of
+workers to be spawned (should be cpu cores - 1).| | SOMBRA_SOMBRA_PUMA_RAM
+| 1024 | no | Megabytes of RAM to be used by sombra.| |
+SOMBRA_SOMBRA_PUMA_THREADS_MIN | 8 | no | Minimum number of threads per
+worker.| | SOMBRA_SOMBRA_PUMA_THREADS_MAX | 32 | no | Maximum number of
+threads per worker.| | SOMBRA_RATE_LIMIT_REQUESTS | 300 | no | Number of
+requests per IP before throttling.| | SOMBRA_RATE_LIMIT_PERIOD_IN_S | 10 |
+no | Period for requests. E.g. 300 reqs within 10s by one IP.|</p>
 <hr>
 
 <h3 id="label-Development">Development</h3>
 
 <h4 id="label-Environment">Environment</h4>
 
-<p>Easiest way to develop Sombra is running the included docker-compose.yml.
-Make sure to rebuild your containers on changes. Depending on your OS you
-can also mount the source into the app container. This way rails will
-reload changed files (except initializers).</p>
+<p>Easiest way to develop Sombra is running the included docker-compose.yml
+(see start_dev.sh). Make sure to rebuild your containers on changes.
+Depending on your OS you can also mount the source into the app container.
+This way rails will reload changed files (except initializers).</p>
 
 <h4 id="label-Tests">Tests</h4>
 
@@ -274,9 +276,9 @@ License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Jan  5 16:32:43 2017 by
+  Generated on Fri Jan 27 19:48:41 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.4.0).
+  0.9.8 (ruby-2.4.0).
 </div>
 
     </div>

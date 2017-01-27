@@ -6,7 +6,7 @@
 <title>
   Class: UsersController
   
-    &mdash; Documentation by YARD 0.9.5
+    &mdash; Documentation by YARD 0.9.8
   
 </title>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="class_list.html"></iframe>
+      <iframe id="nav" src="class_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -58,8 +58,6 @@
 </div>
         <div class="clear"></div>
       </div>
-
-      <iframe id="search_frame" src="class_list.html"></iframe>
 
       <div id="content"><h1>Class: UsersController
   
@@ -336,8 +334,8 @@
       <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
-  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='const'>User</span>
-  <span class='ivar'>@user</span> <span class='op'>=</span> <span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
+  <span class='ivar'>@user</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
     <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='ivar'>@user</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='symbol'>:created</span><span class='comma'>,</span> <span class='label'>location:</span> <span class='ivar'>@user</span>
@@ -397,7 +395,7 @@
       <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
-  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:destroy</span><span class='comma'>,</span> <span class='const'>User</span>
+  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:destroy</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
   <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -454,8 +452,8 @@
       <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
-  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'>User</span>
-  <span class='ivar'>@users</span> <span class='op'>=</span> <span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
+  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
+  <span class='ivar'>@users</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
 
   <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='ivar'>@users</span>
 <span class='kw'>end</span></pre>
@@ -511,7 +509,7 @@
       <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
-  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'>User</span>
+  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
   <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='ivar'>@user</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -570,7 +568,7 @@
       <pre class="code"><span class="info file"># File 'app/controllers/users_controller.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
-  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='const'>User</span>
+  <span class='id identifier rubyid_authorize!'>authorize!</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
   <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='ivar'>@user</span>
   <span class='kw'>else</span>
@@ -587,9 +585,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jan  5 16:32:44 2017 by
+  Generated on Fri Jan 27 19:48:41 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.4.0).
+  0.9.8 (ruby-2.4.0).
 </div>
 
     </div>
