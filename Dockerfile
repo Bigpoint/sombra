@@ -1,4 +1,4 @@
-FROM ruby:2.4-alpine
+FROM ruby:2.6-alpine
 MAINTAINER Nils Bartels <n.bartels@bigpoint.net>
 
 ENV APP_HOME /sombra
@@ -12,7 +12,7 @@ RUN set -x \
 
 # unfortunately we need native extensions, so compilers
 # we use tini (github.com/krallin/tini) as init
-RUN apk add --update build-base linux-headers ruby-dev tini
+RUN apk add --update bash build-base linux-headers ruby-dev tini
 
 ADD Gemfile $APP_HOME/
 ADD Gemfile.lock $APP_HOME/
@@ -24,7 +24,9 @@ RUN apk del --purge build-base linux-headers ruby-dev
 ADD . $APP_HOME
 
 # chown files for www-data write access. webserver needs Gemfile.lock
-RUN chown -R www-data:www-data tmp/ log/ Gemfile.lock
+# Also as OpenShift changes the user, we need to allow everyone to write in $APP_HOME
+RUN chown -R www-data:www-data $APP_HOME && \
+    chmod -R 0777 $APP_HOME
 
 USER www-data
 

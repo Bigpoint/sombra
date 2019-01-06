@@ -159,11 +159,12 @@ Sombra is configurable through environment variables:
 | SOMBRA_MONGODB_ROLES | nil | yes | The auth user's dbRoles for MongoDB.|
 | SOMBRA_MONGODB_AUTH_SOURCE | nil | yes | The db within MongoDB to auth against.|
 | SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Maximum concurrent connections to MongoDB per worker.|
-| SOMBRA_MONGODB_MAX_POOL_SIZE | nil | yes | Minimum concurrent connections to MongoDB per worker.|
-| SOMBRA_SOMBRA_PUMA_WORKERS | 3 | no | Number of workers to be spawned (should be cpu cores - 1).|
-| SOMBRA_SOMBRA_PUMA_RAM | 1024 | no | Megabytes of RAM to be used by sombra.|
-| SOMBRA_SOMBRA_PUMA_THREADS_MIN | 8 | no | Minimum number of threads per worker.|
-| SOMBRA_SOMBRA_PUMA_THREADS_MAX | 32 | no | Maximum number of threads per worker.|
+| SOMBRA_MONGODB_MIN_POOL_SIZE | nil | yes | Minimum concurrent connections to MongoDB per worker.|
+| SOMBRA_PUMA_WORKERS | 3 | no | Number of workers to be spawned (should be cpu cores - 1).|
+| SOMBRA_PUMA_RAM | 1024 | no | Megabytes of RAM to be used by sombra.|
+| SOMBRA_PUMA_THREADS_MIN | 8 | no | Minimum number of threads per worker.|
+| SOMBRA_PUMA_THREADS_MAX | 32 | no | Maximum number of threads per worker.|
+| SOMBRA_PUMA_REAPER_LOGS | false | no | Enable memory debug logging on puma.|
 | SOMBRA_RATE_LIMIT_REQUESTS | 300 | no | Number of requests per IP before throttling.|
 | SOMBRA_RATE_LIMIT_PERIOD_IN_S | 10 | no | Period for requests. E.g. 300 reqs within 10s by one IP.|
 

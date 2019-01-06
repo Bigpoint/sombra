@@ -16,6 +16,7 @@ before_fork do
   PumaWorkerKiller.enable_rolling_restart(1 * 3600)
   PumaWorkerKiller.frequency = 30
   PumaWorkerKiller.ram = ram.to_i
+  PumaWorkerKiller.reaper_status_logs = ENV['SOMBRA_PUMA_REAPER_LOGS'] || false 
 
   PumaWorkerKiller.start
 end

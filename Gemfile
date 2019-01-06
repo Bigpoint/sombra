@@ -4,9 +4,9 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bcrypt', '~> 3.1.11'
+gem 'bcrypt', '~> 3.1.12'
 gem 'rack-cors'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.2.2', '>= 5.2.0.1'
 gem 'tzinfo-data'
 
 group :development, :test do
@@ -21,12 +21,12 @@ group :development do
 end
 
 # gem dedicated to sombra
-gem 'access-granted', '~> 1.1.2'
+gem 'access-granted', '~> 1.3.1'
 gem 'knock', '~> 2.1.1'
-gem 'mongoid', '~> 6.1.0'
-gem 'oj', '~> 3.0.9'
+gem 'mongoid', '~> 7.0.2'
+gem 'oj', '~> 3.7.6'
 gem 'oj_mimic_json', '~> 1.0.1'
-gem 'puma', '~> 3.8.2'
+gem 'puma', '~> 3.12.0'
 gem 'puma_worker_killer', '~> 0.1.0'
-gem 'rack-attack', '~> 5.0.1'
+gem 'rack-attack', '~> 5.4.2'
 gem 'redis-rails', '~> 5.0.2'

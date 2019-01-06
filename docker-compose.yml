@@ -3,13 +3,26 @@
 # to force recreation: docker-compose up -d --force-recreate --build
 # to initialize db: docker exec -d sombra_app_1 rake db:reset
 # to get inside the app container: docker exec -it sombra_app_1 sh
-version: '2'
+version: '3'
 services:
-  mongodb:
-    image: mongo:3.4
+  mongo:
+    image: mongo:4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   redis:
-    image: redis:3-alpine
+    image: redis:5-alpine
     command: ["redis-server", "--requirepass", "foobar"]
 
   app:
@@ -17,12 +30,17 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mongodb
+      - mongo
       - redis
-    links:
-      - "mongodb:mongodb"
-      - "redis:redis"
     environment:
       - RAILS_ENV=development
       - SECRET_KEY_BASE=bd43a0b6c77911978dfcf2d13b7467asdasdasd602c45abd612ebb2d8as9b7f8a244730def09a5c70573a3dbea6387248ec100aa2ae244730def0673707696f13e5e
-      - SOMBRA_MONGODB_HOST=mongodb:27017
+      - SOMBRA_MONGODB_HOST=mongo:27017
+      - SOMBRA_MONGODB_USER=root
+      - SOMBRA_MONGODB_PASSWORD=example
+      - SOMBRA_MONGODB_AUTH_SOURCE=admin
+      - SOMBRA_MONGODB_MAX_POOL_SIZE=4
+      - SOMBRA_MONGODB_MIN_POOL_SIZE=1
+      - SOMBRA_PUMA_REAPER_LOGS=true
+      
+      
